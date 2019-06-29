@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body class="container bg-light">
+	<div id="cadastro-livro">
+		<form action="/salvar" method="post" th:object="${livroobj}">
+			<h1>Cadastro de Livros</h1>
+			<div class="row ">
+				<div class="col m-1">
+					<label for="id">ID</label> <input class="form-control" name="id"
+						th:field="*{id}" readonly="readonly">
+				</div>
+				<div class="col m-1">
+					<label for="titulo">Título</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col m-1">
+					<label for="qtdPaginas">Quantidade de Páginas</label> <input
+						class="form-control" type="number" min="0" name="qtdPaginas"
+						th:field="*{qtdPaginas}" required />
+				</div>
+				<div class="col m-1">
+					<label for="autor.nome">Autor</label> 
+					<input class="form-control" type="text" list="autores" 
+						name="autor.nome" th:field="*{autor.nome}" required />
+					<datalist id="autores">
+						<option value="Internet Explorer">
+						<option value="Wesley">
+						<option value="José">
+						<option value="Safadão">
+					</datalist>
+				</div>
+				<div class="col m-1">
+					<label for="editora.name">Editora</label> 
+					<input class="form-control" type="text" name="editora.nome"
+						list="editoras" th:field="*{editora.nome}" required />
+					<datalist id="editoras">
+						<option value="Marihuannas">
+						<option value="Snoop Dog">
+						<option value="Opera">
+						<option value="Abril">
+					</datalist>
+				</div>
+			</div>
+			<div class="row justify-content-end m-1">
+				<button class="btn btn-secondary" type="submit" value="salvar">Cadastrar</button>
+			</div>
+		</form>
+		<br />
+		<hr />
+	</div>
+
+	<div id="consulta-livro">
+		<h1>Consulta</h1>
+		<a class="btn btn-secondary" href="/livros">Listar Todos</a> <br /> <br />
+
+		<form action="/pesquisar" method="post">
+			<div class="row">
+				<div class="col-small">
+					<div class="input-group ml-3">
+						<div class="input-group-prepend">
+							<button class="btn btn-outline-secondary" type="submit"
+								id="button-addon1">Buscar por título</button>
+						</div>
+						<input type="text" class="form-control" name="titulo" />
+					</div>
+				</div>
+			</div>
+		</form>
+		<br />
+	</div>
+
+	<div id="lista-livro">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Título</th>
+					<th>Quantidade de Páginas</th>
+					<th>Autor</th>
+					<th>Editora</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="livro : ${livros}">
+					<td th:text="${livro.id}"></td>
+					<td th:text="${livro.titulo}"></td>
+					<td th:text="${livro.qtdPaginas}"></td>
+					<td th:text="${livro.autor.nome}"></td>
+					<td th:text="${livro.editora.nome}"></td>
+					<td><a class="pr-3"
+						th:href="@{/editar/{idlivro}(idlivro = ${livro.id})}">Editar</a> <a
+						th:href="@{/excluir/{idlivro}(idlivro = ${livro.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
