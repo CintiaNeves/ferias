@@ -1,7 +1,5 @@
 package br.com.cintia.ferias.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.cintia.ferias.facade.IFacade;
 import br.com.cintia.ferias.model.Livro;
-import br.com.cintia.ferias.repository.LivroRepository;
+import br.com.cintia.ferias.util.Resultado;
 
 @Controller
 public class LivroController {
 	
 	@Autowired
-	private LivroRepository livroRepository;
+	private IFacade<Livro> facade;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastro")
 	public ModelAndView inicio() {
@@ -31,24 +30,35 @@ public class LivroController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/salvar")
 	public ModelAndView salvar(Livro livro) {
+
+		Resultado resultado = facade.salvar(livro);
+		ModelAndView andView = null;
 		
-		livroRepository.save(livro);
-		
-		ModelAndView andView = new ModelAndView("cadastro");
-		Iterable<Livro> livrosIt = livroRepository.findAll();
-		andView.addObject("livros", livrosIt);
-		andView.addObject("livroobj", new Livro());
-		
+		if(resultado.isErro()) {
+			andView = new ModelAndView("erro");
+		}else {
+			andView = new ModelAndView("cadastro");
+			andView.addObject("livros", resultado.getListaEntidade());
+			andView.addObject("livroobj", new Livro());
+		}
 		return andView ;
 	}
 	
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/livros")
-	public ModelAndView livros() {
+	public ModelAndView consultar() {
 		
-		ModelAndView andView = new ModelAndView("cadastro");
-		Iterable<Livro> livrosIt = livroRepository.findAll();
-		andView.addObject("livros", livrosIt);
-		andView.addObject("livroobj", new Livro());
+		Resultado resultado = facade.consultar(new Livro());
+		ModelAndView andView = null;
+		
+		if(resultado.isErro()) {
+			andView = new ModelAndView("erro");
+		}else {
+			andView = new ModelAndView("cadastro");
+			andView.addObject("livros", resultado.getListaEntidade());
+			andView.addObject("livroobj", new Livro ());
+		}
+		
 		return andView;
 		
 	}
@@ -56,30 +66,56 @@ public class LivroController {
 	@GetMapping("/editar/{idlivro}")
 	public ModelAndView editar(@PathVariable("idlivro") Long idlivro) {
 		
-		Optional<Livro> livro = livroRepository.findById(idlivro);
+		Livro livro = new Livro();
+		livro.setId(idlivro);
+		Resultado resultado = facade.findByID(livro);
+		ModelAndView andView= null;
 		
-		ModelAndView modelAndView = new ModelAndView("cadastro");
-		modelAndView.addObject("livroobj", livro.get());
-		return modelAndView;
+		if(resultado.isErro()) {
+			andView = new ModelAndView("erro");
+		}else {
+			andView = new ModelAndView("cadastro");
+			andView.addObject("livroobj", resultado.getEntidade());
+		}
+		
+		return andView;
 	}
 	
 	@GetMapping("/excluir/{idlivro}")
 	public ModelAndView excluir(@PathVariable("idlivro") Long idlivro) {
 		
-		livroRepository.deleteById(idlivro);
+		Livro livro = new Livro();
+		livro.setId(idlivro);
+		Resultado resultado = facade.excluir(livro);
+		ModelAndView andView = null;
 		
-		ModelAndView modelAndView = new ModelAndView("cadastro");
-		modelAndView.addObject("livros", livroRepository.findAll());
-		modelAndView.addObject("livroobj", new Livro());
-		return modelAndView;
+		if(resultado.isErro()) {
+			andView = new ModelAndView("erro");
+		}else {
+			andView = new ModelAndView("cadastro");
+			andView.addObject("livros", resultado.getListaEntidade());
+			andView.addObject("livroobj", new Livro ());
+		}
+		
+		return andView;
 	}
 	
 	@PostMapping("/pesquisar")
 	public ModelAndView pesquisar(@RequestParam("titulo") String titulo) {
-	
-		ModelAndView modelAndView = new ModelAndView("cadastro");
-		modelAndView.addObject("livros", livroRepository.findLivroByTitulo(titulo));
-		modelAndView.addObject("livroobj", new Livro());
-		return modelAndView;
+		
+		Livro livro = new Livro();
+		livro.setTitulo(titulo);
+		Resultado resultado = facade.findLivroByTitulo(livro);
+		ModelAndView andView = null;
+		
+		if(resultado.isErro()) {
+			andView = new ModelAndView("erro");
+		}else {
+			andView = new ModelAndView("cadastro");
+			andView.addObject("livros", resultado.getListaEntidade());
+			andView.addObject("livroobj", new Livro ());
+		}
+		
+		return andView;
 	}
 }

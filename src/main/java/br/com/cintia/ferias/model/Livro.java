@@ -2,23 +2,19 @@ package br.com.cintia.ferias.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.cintia.ferias.util.EntidadeDominio;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table
 @Data
+@EqualsAndHashCode(callSuper = false)
+public class Livro extends EntidadeDominio{
 
-public class Livro {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
 	private String titulo;
 	private Integer qtdPaginas;
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})

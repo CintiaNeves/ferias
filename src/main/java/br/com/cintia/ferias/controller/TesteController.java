@@ -1,7 +1,5 @@
 package br.com.cintia.ferias.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +20,7 @@ public class TesteController {
 		model.addAttribute("name", name);
 		Teste t = new Teste();
 		t.setName(name);
-		List<Teste> listTeste = tr.findByName(name);
+		//List<Teste> listTeste = tr.findByName(name);
 		return "teste";
 	}
 }

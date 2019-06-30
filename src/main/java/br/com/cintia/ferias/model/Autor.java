@@ -1,20 +1,17 @@
 package br.com.cintia.ferias.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.cintia.ferias.util.EntidadeDominio;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table
 @Data
-public class Autor {
+@EqualsAndHashCode(callSuper = false)
+public class Autor extends EntidadeDominio{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private String nome;
 }
