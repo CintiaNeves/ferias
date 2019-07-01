@@ -1,6 +1,8 @@
 package br.com.cintia.ferias.dao;
 
-import java.util.Optional;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,15 +19,36 @@ public class LivroDAO extends AbstractDAO<Livro>{
 	@Autowired
 	private LivroRepository livroRepository;
 	
+	
 	@Override
-	public Resultado findByID(Livro entidade) {
+	public Resultado findByFilter(Livro entidade) {
 		
+		String sql = "from livro l where 1=1";
+		
+		boolean possuiTitulo = entidade.getTitulo() != null ? false : true;
+		boolean possuiPaginas = entidade.getQtdPaginas() != null ? false : true;
+		
+		if(possuiTitulo) {
+			sql += " and titulo = :titulo";
+		}
+		if(possuiPaginas) {
+			sql += " and qtdPaginas = :qtdPaginas";			
+		}
+		TypedQuery<Livro> query = em.createQuery(sql, Livro.class);
+		if(possuiTitulo) {
+			query.setParameter("titulo", entidade.getTitulo());
+		}
+		if(possuiPaginas) {
+			query.setParameter("qtdPaginas", entidade.getQtdPaginas());
+		}
+		List<Livro> l = query.getResultList();
 		Resultado resultado = new Resultado();
-		Optional<Livro> livro = livroRepository.findById(entidade.getId());
-		resultado.setEntidade(livro.get()); 
+		resultado.getListaEntidade().addAll(l);
 		return resultado;
 	}
-
+	
+	
+	
 	@Override
 	public Resultado findLivroByTitulo(Livro entidade) {
 		

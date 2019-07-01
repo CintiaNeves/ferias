@@ -1,6 +1,10 @@
 package br.com.cintia.ferias.dao;
 
 import java.util.Map;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +15,10 @@ import br.com.cintia.ferias.util.Resultado;
 public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>{
 	
 	String chave;
+	
+	@PersistenceContext
+	protected EntityManager em;
+	
 	@Autowired
 	private Map<String, IRepository<T>> mapRepository;
 	
@@ -52,6 +60,21 @@ public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>
 
 	@Override
 	public Resultado alterar(T entidade) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Resultado findByID(T entidade) {
+		
+		IRepository<T> repository = getRepository(entidade);
+		Resultado resultado = new Resultado();
+		Optional<T> e = repository.findById(entidade.getId());
+		resultado.setEntidade(e.get()); 
+		return resultado;
+	}
+
+	public Resultado findByFilter(T entidade) {
 		// TODO Auto-generated method stub
 		return null;
 	}
