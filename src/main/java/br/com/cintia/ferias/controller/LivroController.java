@@ -20,10 +20,10 @@ public class LivroController {
 	@Autowired
 	private IFacade<Livro> facade;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/cadastro")
+	@RequestMapping(method = RequestMethod.GET, value = "/cadastro-livro")
 	public ModelAndView inicio() {
 		
-		ModelAndView modelAndView = new ModelAndView("cadastro");
+		ModelAndView modelAndView = new ModelAndView("cadastro-livro");
 		modelAndView.addObject("livroobj", new Livro());		
 		return modelAndView;
 	}
@@ -37,7 +37,7 @@ public class LivroController {
 		if(resultado.isErro()) {
 			andView = new ModelAndView("erro");
 		}else {
-			andView = new ModelAndView("cadastro");
+			andView = new ModelAndView("cadastro-livro");
 			andView.addObject("livros", resultado.getListaEntidade());
 			andView.addObject("livroobj", new Livro());
 		}
@@ -45,7 +45,7 @@ public class LivroController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/livros")
+	@RequestMapping(method = RequestMethod.GET, value = "/consultar")
 	public ModelAndView consultar() {
 		
 		Resultado resultado = facade.consultar(new Livro());
@@ -54,7 +54,7 @@ public class LivroController {
 		if(resultado.isErro()) {
 			andView = new ModelAndView("erro");
 		}else {
-			andView = new ModelAndView("cadastro");
+			andView = new ModelAndView("cadastro-livro");
 			andView.addObject("livros", resultado.getListaEntidade());
 			andView.addObject("livroobj", new Livro ());
 		}
@@ -74,7 +74,7 @@ public class LivroController {
 		if(resultado.isErro()) {
 			andView = new ModelAndView("erro");
 		}else {
-			andView = new ModelAndView("cadastro");
+			andView = new ModelAndView("cadastro-livro");
 			andView.addObject("livroobj", resultado.getEntidade());
 		}
 		
@@ -92,7 +92,7 @@ public class LivroController {
 		if(resultado.isErro()) {
 			andView = new ModelAndView("erro");
 		}else {
-			andView = new ModelAndView("cadastro");
+			andView = new ModelAndView("cadastro-livro");
 			andView.addObject("livros", resultado.getListaEntidade());
 			andView.addObject("livroobj", new Livro ());
 		}
@@ -111,7 +111,7 @@ public class LivroController {
 		if(resultado.isErro()) {
 			andView = new ModelAndView("erro");
 		}else {
-			andView = new ModelAndView("cadastro");
+			andView = new ModelAndView("cadastro-livro");
 			andView.addObject("livros", resultado.getListaEntidade());
 			andView.addObject("livroobj", new Livro ());
 		}
