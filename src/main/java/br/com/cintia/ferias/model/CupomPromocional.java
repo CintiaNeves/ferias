@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class CupomPromocional extends FormaPagamento{
 	
+	private Double valor;
 	private LocalDate dataEmissao;
 	private LocalDate dataValidade;
 	private String codigo;
