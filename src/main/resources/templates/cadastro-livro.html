@@ -12,23 +12,48 @@
 		<form action="/salvar" method="post" th:object="${livroobj}">
 			<h1>Cadastro de Livros</h1>
 			<div class="row ">
-				<div class="col m-1">
+				<div class="col p-1">
 					<label for="id">ID</label> <input class="form-control" name="id"
 						th:field="*{id}" readonly="readonly">
 				</div>
-				<div class="col m-1">
-					<label for="titulo">Título</label> <input class="form-control"
+				<div class="col p-1">
+					<label for="titulo">Ativo</label> <input class="form-control"
 						type="text" name="titulo" th:field="*{titulo}" required />
 				</div>
-				<div class="col m-1">
-					<label for="qtdPaginas">Quantidade de Páginas</label> <input
+				<div class="col p-1">
+					<label for="titulo">Código</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="qtdPaginas">ISBN</label> <input class="form-control"
+						type="number" min="0" name="qtdPaginas" th:field="*{isbn}"
+						required />
+				</div>
+				<div class="col p-1">
+					<label for="qtdPaginas">Código de Barras</label> <input
 						class="form-control" type="number" min="0" name="qtdPaginas"
 						th:field="*{qtdPaginas}" required />
 				</div>
-				<div class="col m-1">
-					<label for="autor.nome">Autor</label> 
-					<input class="form-control" type="text" list="autores" 
-						name="autor.nome" th:field="*{autor.nome}" required />
+				<div class="col p-1">
+					<label for="qtdPaginas">Nº de Páginas</label> <input
+						class="form-control" type="number" min="0" name="qtdPaginas"
+						th:field="*{qtdPaginas}" required />
+				</div>
+				<div class="col p-1">
+					<label for="qtdPaginas">Edição</label> <input
+						class="form-control" type="number" min="0" name="qtdPaginas"
+						th:field="*{qtdPaginas}" required />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col p-1">
+					<label for="titulo">Título</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="autor.nome">Autor</label> <input class="form-control"
+						type="text" list="autores" name="autor.nome"
+						th:field="*{autor.nome}" required />
 					<datalist id="autores">
 						<option value="Internet Explorer">
 						<option value="Wesley">
@@ -36,9 +61,9 @@
 						<option value="Safadão">
 					</datalist>
 				</div>
-				<div class="col m-1">
-					<label for="editora.name">Editora</label> 
-					<input class="form-control" type="text" name="editora.nome"
+				<div class="col p-1">
+					<label for="editora.name">Editora</label> <input
+						class="form-control" type="text" name="editora.nome"
 						list="editoras" th:field="*{editora.nome}" required />
 					<datalist id="editoras">
 						<option value="Marihuannas">
@@ -47,8 +72,37 @@
 						<option value="Abril">
 					</datalist>
 				</div>
+
 			</div>
-			<div class="row justify-content-end m-1">
+			<div class="row">
+				<div class="col p-1">
+					<label for="titulo">Categoria</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="titulo">Ano Publicação</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="titulo">Grupo Precificação</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="titulo">Categoria Ativação</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="titulo">Categoria Inativação</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col p-1">
+					<label for="titulo">Sinopse</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+			</div>
+			<div class="row justify-content-end p-1">
 				<button class="btn btn-secondary" type="submit" value="salvar">Cadastrar</button>
 			</div>
 		</form>
@@ -58,7 +112,8 @@
 
 	<div id="consulta-livro">
 		<h1>Consulta</h1>
-		<a class="btn btn-secondary" href="/consultar">Listar Todos</a> <br /> <br />
+		<a class="btn btn-secondary" href="/consultar">Listar Todos</a> <br />
+		<br />
 
 		<form action="/pesquisar" method="post">
 			<div class="row">
