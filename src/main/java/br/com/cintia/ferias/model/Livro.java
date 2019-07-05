@@ -1,7 +1,5 @@
 package br.com.cintia.ferias.model;
 
-import java.time.LocalTime;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -17,15 +15,15 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Livro extends EntidadeDominio{
 
+	private String codigo;
 	private String titulo;
 	private Integer qtdPaginas;
 	private Boolean ativo;
-	private Long codigo;
-	private LocalTime anoPublicacao;
-	private String edicao;
 	private String isbn;
 	private String sinopse;
 	private String codBarras;
+	private String edicao;
+	private String anoPublicacao;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 	private Autor autor;
@@ -37,10 +35,10 @@ public class Livro extends EntidadeDominio{
 	private Categoria categoria;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-	private GrupoAtivacao categoriaAtivacao;
+	private GrupoAtivacao grupoAtivacao;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-	private GrupoInativacao categoriaInativacao;
+	private GrupoInativacao grupoInativacao;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 	private Dimensoes dimensoes;

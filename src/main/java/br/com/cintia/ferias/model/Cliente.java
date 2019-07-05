@@ -1,6 +1,6 @@
 package br.com.cintia.ferias.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.cintia.ferias.util.EntidadeDominio;
 import lombok.Data;
@@ -23,9 +25,11 @@ public class Cliente extends EntidadeDominio{
 	private Boolean ativo;
 	private Long codigo;
 	private String nome;
-	private LocalDate dataNascimento;
 	private String cpf;
 	private String email;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date dataNascimento;
 	
 	@OneToOne
 	private Usuario usuario;

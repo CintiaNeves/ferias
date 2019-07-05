@@ -29,14 +29,13 @@ public class LivroService implements IService<Livro>{
 	@Override
 	public Resultado excluir(Livro entidade) {
 		
-		dao.excluir(entidade);
-		return dao.consultar(entidade);
+		return dao.excluirLivroNulo(entidade);
 	}
 
 	@Override
 	public Resultado alterar(Livro entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.salvar(entidade);
 	}
 
 	@Override
@@ -46,9 +45,23 @@ public class LivroService implements IService<Livro>{
 	}
 
 	@Override
-	public Resultado findLivroByTitulo(Livro entidade) {
-		
-		return dao.findLivroByTitulo(entidade);
+	public Resultado inicio(Livro entidade) {
+			
+		dao.excluir(entidade);
+		return dao.salvar(entidade);
 	}
 
+	@Override
+	public Resultado findByFilter(Livro entidade) {
+		return dao.findByFilter(entidade);
+	}
+
+	@Override
+	public Resultado excluirById(Livro entidade) {
+		
+		dao.excluirById(entidade);
+		return dao.consultar(entidade);
+	}
+
+	
 }

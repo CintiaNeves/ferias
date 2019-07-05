@@ -14,7 +14,8 @@ public interface IDAO<T extends EntidadeDominio> {
 	public Resultado salvar(T entidade);
 	
 	public Resultado findByID(T entidade);
-	
-	public Resultado findLivroByTitulo(T entidade);
-	
+
+	public Resultado findByFilter(T entidade);
+
+	Resultado excluirById(T entidade);
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body class="container bg-light">
+	<div id="consulta-livro">
+		<h1>Consulta</h1>
+		<a class="btn btn-secondary" href="/consultar">Listar Todos</a> <br />
+		<br />
+
+		<form action="/pesquisar" method="post">
+			<div class="row">
+				<div class="col-small">
+					<div class="input-group ml-3">
+						<div class="input-group-prepend">
+							<button class="btn btn-outline-secondary" type="submit"
+								id="button-addon1">Buscar por título</button>
+						</div>
+						<input type="text" class="form-control" name="titulo" />
+					</div>
+				</div>
+			</div>
+		</form>
+		<br />
+		<hr />
+	</div>
+
+	<div id="lista-livro">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Código</th>
+					<th>Título</th>
+					<th>Autor</th>
+					<th>Editora</th>
+					<th>Genero</th>
+					<th>Ativo</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="livro : ${livros}">
+					<td th:text="${livro.codigo}"></td>
+					<td th:text="${livro.titulo}"></td>
+					<td th:text="${livro.autor.nome}"></td>
+					<td th:text="${livro.editora.nome}"></td>
+					<td th:text="${livro.categoria.descricao}"></td>
+					<td th:text="${livro.ativo}"></td>
+					<td><a class="pr-3"
+						th:href="@{/editar/{idlivro}(idlivro = ${livro.id})}">Editar</a> <a
+						th:href="@{/excluir/{idlivro}(idlivro = ${livro.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<hr />
+	<div class="row justify-content-end p-1 mr-1">
+		<a class="btn btn-secondary" href="/cadastro-livro">Novo Cadastro</a>
+	</div>
+	
+</body>
+</html>

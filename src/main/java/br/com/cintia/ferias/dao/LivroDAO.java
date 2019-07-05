@@ -2,59 +2,54 @@ package br.com.cintia.ferias.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.cintia.ferias.model.Livro;
-import br.com.cintia.ferias.repository.LivroRepository;
 import br.com.cintia.ferias.util.Resultado;
 
 @Repository
 @Transactional
 public class LivroDAO extends AbstractDAO<Livro>{
 	
-	@Autowired
-	private LivroRepository livroRepository;
-	
+	// @Autowired private LivroRepository livroRepository;
 	
 	@Override
 	public Resultado findByFilter(Livro entidade) {
 		
-		String sql = "from livro l where 1=1";
+		boolean possuiTitulo = entidade.getTitulo() != null ? true : false;
+		boolean possuiPaginas = entidade.getQtdPaginas() != null ? true : false;
 		
-		boolean possuiTitulo = entidade.getTitulo() != null ? false : true;
-		boolean possuiPaginas = entidade.getQtdPaginas() != null ? false : true;
+		String sql = "from ".concat(Livro.class.getName().toString()).concat(" l where 1=1");
 		
-		if(possuiTitulo) {
-			sql += " and titulo = :titulo";
-		}
-		if(possuiPaginas) {
-			sql += " and qtdPaginas = :qtdPaginas";			
-		}
+		if(possuiTitulo) 
+			sql = sql.concat(" and titulo like :titulo");
+		
+		if(possuiPaginas) 
+			sql = sql.concat(" and qtdPaginas = :qtdPaginas");			
+		
 		TypedQuery<Livro> query = em.createQuery(sql, Livro.class);
-		if(possuiTitulo) {
-			query.setParameter("titulo", entidade.getTitulo());
-		}
-		if(possuiPaginas) {
+		
+		if(possuiTitulo)
+			query.setParameter("titulo", "%".concat(entidade.getTitulo()).concat("%"));
+
+		if(possuiPaginas)
 			query.setParameter("qtdPaginas", entidade.getQtdPaginas());
-		}
+
 		List<Livro> l = query.getResultList();
 		Resultado resultado = new Resultado();
 		resultado.getListaEntidade().addAll(l);
 		return resultado;
 	}
 	
-	
-	
-	@Override
-	public Resultado findLivroByTitulo(Livro entidade) {
+	public Resultado excluirLivroNulo(Livro entidade) {
 		
+		Query query = em.createQuery("DELETE FROM Livro l WHERE l.titulo = null");
+		query.executeUpdate();
 		Resultado resultado = new Resultado();
-		resultado.getListaEntidade().addAll(livroRepository.findLivroByTitulo(entidade.getTitulo()));
 		return resultado;
 	}
-
 }

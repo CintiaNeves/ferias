@@ -12,110 +12,135 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.cintia.ferias.facade.IFacade;
 import br.com.cintia.ferias.model.Livro;
-import br.com.cintia.ferias.util.Resultado;
+import br.com.cintia.ferias.navigation.NavigationCase;
 
 @Controller
 public class LivroController {
-	
+
 	@Autowired
 	private IFacade<Livro> facade;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastro-livro")
 	public ModelAndView inicio() {
-		
-		ModelAndView modelAndView = new ModelAndView("cadastro-livro");
-		modelAndView.addObject("livroobj", new Livro());		
-		return modelAndView;
+
+		Livro livro = new Livro();
+		NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("INICIO_LIVRO", livro);
+
+		facade.inicio(navigationCase);
+
+		ModelAndView andView = null;
+
+		if (navigationCase.getResultado().isErro()) {
+			andView = new ModelAndView("erro");
+		} else {
+			andView = new ModelAndView("cadastro-livro");
+			andView.addObject("livroobj", navigationCase.getResultado().getEntidade());
+		}
+		return andView;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/salvar")
 	public ModelAndView salvar(Livro livro) {
 
-		Resultado resultado = facade.salvar(livro);
+		NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("SALVAR_LIVRO", livro);
+
+		facade.salvar(navigationCase);
+
 		ModelAndView andView = null;
-		
-		if(resultado.isErro()) {
+
+		if (navigationCase.getResultado().isErro()) {
 			andView = new ModelAndView("erro");
-		}else {
-			andView = new ModelAndView("cadastro-livro");
-			andView.addObject("livros", resultado.getListaEntidade());
-			andView.addObject("livroobj", new Livro());
+		} else {
+			andView = new ModelAndView("consulta-livro");
+			andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
 		}
-		return andView ;
+		return andView;
 	}
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/consultar")
 	public ModelAndView consultar() {
-		
-		Resultado resultado = facade.consultar(new Livro());
+
+		Livro livro = new Livro();
+		NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("CONSULTAR_LIVRO", livro);
+		navigationCase.getResultado().setEntidade(livro);
+		facade.consultar(navigationCase);
+
 		ModelAndView andView = null;
-		
-		if(resultado.isErro()) {
+
+		if (navigationCase.getResultado().isErro()) {
 			andView = new ModelAndView("erro");
-		}else {
-			andView = new ModelAndView("cadastro-livro");
-			andView.addObject("livros", resultado.getListaEntidade());
-			andView.addObject("livroobj", new Livro ());
+		} else {
+			andView = new ModelAndView("consulta-livro");
+			andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
+
 		}
-		
+
 		return andView;
-		
 	}
-	
+
 	@GetMapping("/editar/{idlivro}")
 	public ModelAndView editar(@PathVariable("idlivro") Long idlivro) {
-		
+
 		Livro livro = new Livro();
 		livro.setId(idlivro);
-		Resultado resultado = facade.findByID(livro);
-		ModelAndView andView= null;
+		NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("CONSULTAR_LIVRO", livro);
+		navigationCase.getResultado().setEntidade(livro);
 		
-		if(resultado.isErro()) {
+		facade.findByID(navigationCase);
+
+		ModelAndView andView = null;
+
+		if (navigationCase.getResultado().isErro()) {
 			andView = new ModelAndView("erro");
-		}else {
+		} else {
 			andView = new ModelAndView("cadastro-livro");
-			andView.addObject("livroobj", resultado.getEntidade());
+			andView.addObject("livroobj", navigationCase.getResultado().getEntidade());
 		}
-		
+
 		return andView;
 	}
-	
+
 	@GetMapping("/excluir/{idlivro}")
 	public ModelAndView excluir(@PathVariable("idlivro") Long idlivro) {
-		
+
 		Livro livro = new Livro();
 		livro.setId(idlivro);
-		Resultado resultado = facade.excluir(livro);
+		NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("CONSULTAR_LIVRO", livro);
+		navigationCase.getResultado().setEntidade(livro);
+		
+		facade.excluirById(navigationCase);
 		ModelAndView andView = null;
-		
-		if(resultado.isErro()) {
+
+		if (navigationCase.getResultado().isErro()) {
 			andView = new ModelAndView("erro");
-		}else {
-			andView = new ModelAndView("cadastro-livro");
-			andView.addObject("livros", resultado.getListaEntidade());
-			andView.addObject("livroobj", new Livro ());
+		} else {
+			andView = new ModelAndView("consulta-livro");
+			andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
 		}
-		
+
 		return andView;
 	}
-	
-	@PostMapping("/pesquisar")
-	public ModelAndView pesquisar(@RequestParam("titulo") String titulo) {
 		
-		Livro livro = new Livro();
-		livro.setTitulo(titulo);
-		Resultado resultado = facade.findLivroByTitulo(livro);
-		ModelAndView andView = null;
 		
-		if(resultado.isErro()) {
-			andView = new ModelAndView("erro");
-		}else {
-			andView = new ModelAndView("cadastro-livro");
-			andView.addObject("livros", resultado.getListaEntidade());
-			andView.addObject("livroobj", new Livro ());
+		@PostMapping("/pesquisar")
+		public ModelAndView pesquisar(@RequestParam("titulo") String titulo) {
+
+			Livro livro = new Livro();
+			livro.setTitulo(titulo);
+			NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("CONSULTAR_LIVRO", livro);
+			navigationCase.getResultado().setEntidade(livro);
+			
+			facade.findByFilter(navigationCase);
+			ModelAndView andView = null;
+
+			if (navigationCase.getResultado().isErro()) {
+				andView = new ModelAndView("erro");
+			} else {
+				andView = new ModelAndView("consulta-livro");
+				andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
+			}
+
+			return andView;
 		}
-		
-		return andView;
-	}
+
 }

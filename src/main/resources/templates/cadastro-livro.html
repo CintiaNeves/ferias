@@ -17,22 +17,12 @@
 						th:field="*{id}" readonly="readonly">
 				</div>
 				<div class="col p-1">
-					<label for="titulo">Ativo</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
+					<label for="codigo">Código</label> <input class="form-control"
+						type="text" name="codigo" th:field="*{codigo}" readonly="readonly" />
 				</div>
 				<div class="col p-1">
-					<label for="titulo">Código</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
-				</div>
-				<div class="col p-1">
-					<label for="qtdPaginas">ISBN</label> <input class="form-control"
-						type="number" min="0" name="qtdPaginas" th:field="*{isbn}"
-						required />
-				</div>
-				<div class="col p-1">
-					<label for="qtdPaginas">Código de Barras</label> <input
-						class="form-control" type="number" min="0" name="qtdPaginas"
-						th:field="*{qtdPaginas}" required />
+					<label for="isbn">ISBN</label> <input class="form-control"
+						name="isbn" th:field="*{isbn}" required />
 				</div>
 				<div class="col p-1">
 					<label for="qtdPaginas">Nº de Páginas</label> <input
@@ -40,9 +30,8 @@
 						th:field="*{qtdPaginas}" required />
 				</div>
 				<div class="col p-1">
-					<label for="qtdPaginas">Edição</label> <input
-						class="form-control" type="number" min="0" name="qtdPaginas"
-						th:field="*{qtdPaginas}" required />
+					<label for="edicao">Edição</label> <input class="form-control"
+						type="number" min="0" name="edicao" th:field="*{edicao}" required />
 				</div>
 			</div>
 			<div class="row">
@@ -72,44 +61,80 @@
 						<option value="Abril">
 					</datalist>
 				</div>
+				<div class="col p-1">
+					<label for="anoPublicacao">Ano Publicação</label> <input
+						class="form-control" type="text" name="anoPublicacao"
+						th:field="*{anoPublicacao}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col p-1">
+					<label for="categoria.descricao">Categoria</label> <input
+						class="form-control" type="text" name="categoria.descricao"
+						th:field="*{categoria.descricao}" required />
+				</div>
 
-			</div>
-			<div class="row">
 				<div class="col p-1">
-					<label for="titulo">Categoria</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
+					<label for="grupoPrecificacao.descricao">Grupo Precificação</label>
+					<input class="form-control" type="text"
+						name="grupoPrecificacao.descricao"
+						th:field="*{grupoPrecificacao.descricao}" required />
 				</div>
 				<div class="col p-1">
-					<label for="titulo">Ano Publicação</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
-				</div>
-				<div class="col p-1">
-					<label for="titulo">Grupo Precificação</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
-				</div>
-				<div class="col p-1">
-					<label for="titulo">Categoria Ativação</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
-				</div>
-				<div class="col p-1">
-					<label for="titulo">Categoria Inativação</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
+					<label for="codBarras">Código de Barras</label> <input
+						class="form-control" name="codBarras" th:field="*{codBarras}"
+						required />
 				</div>
 			</div>
+			<div class="row ">
+				<div class="col p-1">
+					<label for="dimensoes.altura">Altura</label> <input
+						class="form-control" name="dimensoes.altura"
+						th:field="*{dimensoes.altura}" required />
+				</div>
+				<div class="col p-1">
+					<label for="dimensoes.largura">Largura</label> <input
+						class="form-control" name="dimensoes.largura"
+						th:field="*{dimensoes.largura}" required />
+				</div>
+				<div class="col p-1">
+					<label for="dimensoes.peso">Peso</label> <input
+						class="form-control" name="dimensoes.peso"
+						th:field="*{dimensoes.peso}" required />
+				</div>
+				<div class="col p-1">
+					<label for="dimensoes.profundidade">Profundidade</label> <input
+						class="form-control" name="dimensoes.profundidade"
+						th:field="*{dimensoes.profundidade}" required />
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col p-1">
-					<label for="titulo">Sinopse</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
+					<label for="sinopse">Sinopse</label> <input class="form-control"
+						type="text" name="sinopse" th:field="*{sinopse}" required />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="ativo"
+						value="true" th:field="*{ativo}" required> <label
+						class="form-check-label" for="ativo">Ativo</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="inativo"
+						value="false" th:field="*{ativo}"> <label
+						class="form-check-label" for="inativo">Inativo</label>
 				</div>
 			</div>
 			<div class="row justify-content-end p-1">
 				<button class="btn btn-secondary" type="submit" value="salvar">Cadastrar</button>
 			</div>
+
 		</form>
 		<br />
 		<hr />
 	</div>
-
 	<div id="consulta-livro">
 		<h1>Consulta</h1>
 		<a class="btn btn-secondary" href="/consultar">Listar Todos</a> <br />
@@ -129,34 +154,7 @@
 			</div>
 		</form>
 		<br />
-	</div>
-
-	<div id="lista-livro">
-		<table class="table table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>ID</th>
-					<th>Título</th>
-					<th>Quantidade de Páginas</th>
-					<th>Autor</th>
-					<th>Editora</th>
-					<th>Ações</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="livro : ${livros}">
-					<td th:text="${livro.id}"></td>
-					<td th:text="${livro.titulo}"></td>
-					<td th:text="${livro.qtdPaginas}"></td>
-					<td th:text="${livro.autor.nome}"></td>
-					<td th:text="${livro.editora.nome}"></td>
-					<td><a class="pr-3"
-						th:href="@{/editar/{idlivro}(idlivro = ${livro.id})}">Editar</a> <a
-						th:href="@{/excluir/{idlivro}(idlivro = ${livro.id})}">Excluir</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<hr />
 	</div>
 </body>
 </html>

@@ -1,19 +1,25 @@
 package br.com.cintia.ferias.facade;
 
+import br.com.cintia.ferias.navigation.NavigationCase;
 import br.com.cintia.ferias.util.EntidadeDominio;
-import br.com.cintia.ferias.util.Resultado;
 
 public interface IFacade<T extends EntidadeDominio> {
 	
-	public Resultado salvar(T entidade);
+	public void salvar(NavigationCase<T> navigationCase);
 
-	public Resultado consultar(T entidade);
+	public void consultar(NavigationCase<T> navigationCase);
 
-	public Resultado excluir(T entidade);
+	public void excluir(NavigationCase<T> navigationCase);
 
-	public Resultado alterar(T entidade);
+	public void alterar(NavigationCase<T> navigationCase);
 	
-	public Resultado findByID(T entidade);
+	public void inicio(NavigationCase<T> navigationCase);
 	
-	public Resultado findLivroByTitulo(T entidade);
+	public void findByID(NavigationCase<T> navigationCase);
+
+	public void findByFilter(NavigationCase<T> navigationCase);
+
+	public void excluirById(NavigationCase<T> navigationCase);
+
+	
 }

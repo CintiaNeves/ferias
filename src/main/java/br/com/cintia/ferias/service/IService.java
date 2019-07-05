@@ -15,5 +15,9 @@ public interface IService<T extends EntidadeDominio> {
 	
 	public Resultado findByID(T entidade);
 	
-	public Resultado findLivroByTitulo(T entidade);
+	public Resultado inicio(T entidade);
+
+	public Resultado findByFilter(T entidade);
+	
+	public Resultado excluirById(T entidade);
 }

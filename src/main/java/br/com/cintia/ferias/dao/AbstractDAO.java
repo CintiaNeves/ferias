@@ -50,12 +50,8 @@ public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>
 
 	@Override
 	public Resultado excluir(T entidade) {
-
-		IRepository<T> repository = getRepository(entidade);
-		Resultado resultado = new Resultado();
-		repository.deleteById(entidade.getId());
-	
-		return resultado;
+		// TODO Auto-generated method stub
+				return null;
 	}
 
 	@Override
@@ -77,6 +73,16 @@ public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>
 	public Resultado findByFilter(T entidade) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public Resultado excluirById(T entidade) {
+
+		IRepository<T> repository = getRepository(entidade);
+		Resultado resultado = new Resultado();
+		repository.deleteById(entidade.getId());
+	
+		return resultado;
 	}
 	
 	

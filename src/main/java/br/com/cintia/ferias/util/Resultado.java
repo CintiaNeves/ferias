@@ -15,7 +15,13 @@ public class Resultado {
 	public void setEntidade(EntidadeDominio entidadeDominio) {
 		listaEntidade.add(entidadeDominio);
 	}
-	public EntidadeDominio getEntidade() {
-		return listaEntidade.get(0);
+	
+	@SuppressWarnings("unchecked")
+	public <T extends EntidadeDominio> List<T> getListEntidade() {
+		return (List<T>) listaEntidade;
+	}
+	@SuppressWarnings("unchecked")
+	public <T extends EntidadeDominio> T getEntidade() {
+		return (T) listaEntidade.get(0);
 	}
 }

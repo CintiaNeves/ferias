@@ -1228,7 +1228,7 @@
  (cidade_seq.nextval, 'Itaguatins',  27),
  (cidade_seq.nextval, 'Xambioá',  27);
 
- insert into bandeira values
+  insert into bandeira values
  (bandeira_seq.nextval,  'Visa'),
  (bandeira_seq.nextval,  'Mastercard'),
  (bandeira_seq.nextval,  'Elo'),
