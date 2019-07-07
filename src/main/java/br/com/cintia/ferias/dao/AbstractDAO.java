@@ -14,7 +14,7 @@ import br.com.cintia.ferias.util.Resultado;
 
 public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>{
 	
-	String chave;
+	private String chave;
 	
 	@PersistenceContext
 	protected EntityManager em;
@@ -42,9 +42,9 @@ public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>
 	}
 
 	@Override
-	public Resultado consultar(T entidade) {
+	public Resultado findAll(T entidade) {
 		Resultado resultado = new Resultado();
-		resultado.getListaEntidade().addAll(getRepository(entidade).findAll());
+		resultado.setEntidade(entidade.getClass().getName(), getRepository(entidade).findAll());
 		return resultado;
 	}
 
@@ -84,8 +84,4 @@ public  abstract class AbstractDAO<T extends EntidadeDominio> implements IDAO<T>
 	
 		return resultado;
 	}
-	
-	
-
-
 }

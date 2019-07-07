@@ -41,7 +41,7 @@ public class LivroDAO extends AbstractDAO<Livro>{
 
 		List<Livro> l = query.getResultList();
 		Resultado resultado = new Resultado();
-		resultado.getListaEntidade().addAll(l);
+		resultado.setEntidade(l);
 		return resultado;
 	}
 	

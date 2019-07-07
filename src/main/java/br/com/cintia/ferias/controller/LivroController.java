@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.cintia.ferias.facade.IFacade;
+import br.com.cintia.ferias.model.Categoria;
+import br.com.cintia.ferias.model.Editora;
+import br.com.cintia.ferias.model.GrupoPrecificacao;
 import br.com.cintia.ferias.model.Livro;
 import br.com.cintia.ferias.navigation.NavigationCase;
 
@@ -35,6 +38,9 @@ public class LivroController {
 		} else {
 			andView = new ModelAndView("cadastro-livro");
 			andView.addObject("livroobj", navigationCase.getResultado().getEntidade());
+			andView.addObject("categorias", navigationCase.getResultado().getEntidade(Categoria.class.getName()));
+			andView.addObject("grupos", navigationCase.getResultado().getEntidade(GrupoPrecificacao.class.getName()));
+			andView.addObject("editoras", navigationCase.getResultado().getEntidade(Editora.class.getName()));
 		}
 		return andView;
 	}
@@ -52,7 +58,7 @@ public class LivroController {
 			andView = new ModelAndView("erro");
 		} else {
 			andView = new ModelAndView("consulta-livro");
-			andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
+			andView.addObject("livros", navigationCase.getResultado().getEntidade(Livro.class.getName()));
 		}
 		return andView;
 	}
@@ -63,7 +69,7 @@ public class LivroController {
 		Livro livro = new Livro();
 		NavigationCase<Livro> navigationCase = new NavigationCase<Livro>("CONSULTAR_LIVRO", livro);
 		navigationCase.getResultado().setEntidade(livro);
-		facade.consultar(navigationCase);
+		facade.findAll(navigationCase);
 
 		ModelAndView andView = null;
 
@@ -71,7 +77,7 @@ public class LivroController {
 			andView = new ModelAndView("erro");
 		} else {
 			andView = new ModelAndView("consulta-livro");
-			andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
+			andView.addObject("livros", navigationCase.getResultado().getEntidade(Livro.class.getName()));
 
 		}
 
@@ -115,7 +121,7 @@ public class LivroController {
 			andView = new ModelAndView("erro");
 		} else {
 			andView = new ModelAndView("consulta-livro");
-			andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
+			andView.addObject("livros", navigationCase.getResultado().getEntidade(Livro.class.getName()));
 		}
 
 		return andView;
@@ -137,7 +143,7 @@ public class LivroController {
 				andView = new ModelAndView("erro");
 			} else {
 				andView = new ModelAndView("consulta-livro");
-				andView.addObject("livros", navigationCase.getResultado().getListaEntidade());
+				andView.addObject("livros", navigationCase.getResultado().getEntidade());
 			}
 
 			return andView;

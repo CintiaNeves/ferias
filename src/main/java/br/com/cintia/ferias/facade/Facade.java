@@ -42,11 +42,11 @@ public class Facade<T extends EntidadeDominio> implements IFacade<T>{
 	}
 
 	@Override
-	public void consultar(NavigationCase<T> navigationCase) {
+	public void findAll(NavigationCase<T> navigationCase) {
 		navigator.run(navigationCase);
 		if(!navigationCase.getCancelado()) {
 			IService<T> s = getService(navigationCase.getEntidade());
-			Resultado r = s.consultar(navigationCase.getResultado().getEntidade());
+			Resultado r = s.findAll(navigationCase.getResultado().getEntidade());
 			navigationCase.setResultado(r);			
 		}
 	}

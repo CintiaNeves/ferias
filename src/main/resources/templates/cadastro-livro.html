@@ -13,12 +13,9 @@
 			<h1>Cadastro de Livros</h1>
 			<div class="row ">
 				<div class="col p-1">
-					<label for="id">ID</label> <input class="form-control" name="id"
-						th:field="*{id}" readonly="readonly">
-				</div>
-				<div class="col p-1">
 					<label for="codigo">Código</label> <input class="form-control"
 						type="text" name="codigo" th:field="*{codigo}" readonly="readonly" />
+					<input type="hidden" name="id" th:field="*{id}" />
 				</div>
 				<div class="col p-1">
 					<label for="isbn">ISBN</label> <input class="form-control"
@@ -33,34 +30,6 @@
 					<label for="edicao">Edição</label> <input class="form-control"
 						type="number" min="0" name="edicao" th:field="*{edicao}" required />
 				</div>
-			</div>
-			<div class="row">
-				<div class="col p-1">
-					<label for="titulo">Título</label> <input class="form-control"
-						type="text" name="titulo" th:field="*{titulo}" required />
-				</div>
-				<div class="col p-1">
-					<label for="autor.nome">Autor</label> <input class="form-control"
-						type="text" list="autores" name="autor.nome"
-						th:field="*{autor.nome}" required />
-					<datalist id="autores">
-						<option value="Internet Explorer">
-						<option value="Wesley">
-						<option value="José">
-						<option value="Safadão">
-					</datalist>
-				</div>
-				<div class="col p-1">
-					<label for="editora.name">Editora</label> <input
-						class="form-control" type="text" name="editora.nome"
-						list="editoras" th:field="*{editora.nome}" required />
-					<datalist id="editoras">
-						<option value="Marihuannas">
-						<option value="Snoop Dog">
-						<option value="Opera">
-						<option value="Abril">
-					</datalist>
-				</div>
 				<div class="col p-1">
 					<label for="anoPublicacao">Ano Publicação</label> <input
 						class="form-control" type="text" name="anoPublicacao"
@@ -69,16 +38,42 @@
 			</div>
 			<div class="row">
 				<div class="col p-1">
+					<label for="titulo">Título</label> <input class="form-control"
+						type="text" name="titulo" th:field="*{titulo}" required />
+				</div>
+				<div class="col p-1">
+					<label for="autor.nome">Autor</label> <input class="form-control"
+						type="text" name="autor.nome" th:field="*{autor.nome}" />
+				</div>
+				<div class="col p-1">
+					<label for="editora.name">Editora</label> <input
+						class="form-control" type="text" name="editora.nome"
+						list="editoras" th:field="*{editora.nome}" required />
+					<datalist id="editoras">
+						<option th:each="editora : ${editoras}"
+							th:value="${editora.nome}" />
+					</datalist>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col p-1">
 					<label for="categoria.descricao">Categoria</label> <input
 						class="form-control" type="text" name="categoria.descricao"
-						th:field="*{categoria.descricao}" required />
+						list="categorias" th:field="*{categoria.descricao}" required />
+					<datalist id="categorias">
+						<option th:each="categoria : ${categorias}"
+							th:value="${categoria.descricao}" />
+					</datalist>
 				</div>
 
 				<div class="col p-1">
 					<label for="grupoPrecificacao.descricao">Grupo Precificação</label>
 					<input class="form-control" type="text"
-						name="grupoPrecificacao.descricao"
+						name="grupoPrecificacao.descricao" list="grupos"
 						th:field="*{grupoPrecificacao.descricao}" required />
+					<datalist id="grupos">
+						<option th:each="grupo : ${grupos}" th:value="${grupo.descricao}" />
+					</datalist>
 				</div>
 				<div class="col p-1">
 					<label for="codBarras">Código de Barras</label> <input
@@ -88,24 +83,24 @@
 			</div>
 			<div class="row ">
 				<div class="col p-1">
-					<label for="dimensoes.altura">Altura</label> <input
+					<label for="dimensoes.altura">Altura (cm)</label> <input
 						class="form-control" name="dimensoes.altura"
 						th:field="*{dimensoes.altura}" required />
 				</div>
 				<div class="col p-1">
-					<label for="dimensoes.largura">Largura</label> <input
+					<label for="dimensoes.largura">Largura (cm)</label> <input
 						class="form-control" name="dimensoes.largura"
 						th:field="*{dimensoes.largura}" required />
 				</div>
 				<div class="col p-1">
-					<label for="dimensoes.peso">Peso</label> <input
-						class="form-control" name="dimensoes.peso"
-						th:field="*{dimensoes.peso}" required />
-				</div>
-				<div class="col p-1">
-					<label for="dimensoes.profundidade">Profundidade</label> <input
+					<label for="dimensoes.profundidade">Profundidade (cm)</label> <input
 						class="form-control" name="dimensoes.profundidade"
 						th:field="*{dimensoes.profundidade}" required />
+				</div>
+				<div class="col p-1">
+					<label for="dimensoes.peso">Peso (kg)</label> <input
+						class="form-control" name="dimensoes.peso"
+						th:field="*{dimensoes.peso}" required />
 				</div>
 			</div>
 

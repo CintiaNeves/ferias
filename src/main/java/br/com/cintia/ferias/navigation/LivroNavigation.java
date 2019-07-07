@@ -6,16 +6,16 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.cintia.ferias.model.Livro;
 import br.com.cintia.ferias.strategy.ExcluiLivroNulo;
-import br.com.cintia.ferias.strategy.GeraCodigoLivro;
+import br.com.cintia.ferias.strategy.InicializaAtributos;
 import br.com.cintia.ferias.strategy.ValidaPontoFlutuante;
 import br.com.cintia.ferias.util.NavigationBuilder;
 
 @Configuration
 public class LivroNavigation {
 	
-	@Autowired ExcluiLivroNulo excluiLivroNulo;
-	@Autowired GeraCodigoLivro geraCodigoLivro;
-	@Autowired ValidaPontoFlutuante validaPontoFlutuante;
+	@Autowired private ExcluiLivroNulo excluiLivroNulo;
+	@Autowired private ValidaPontoFlutuante validaPontoFlutuante;
+	@Autowired private InicializaAtributos inicializaAtributos;
 	
 	@Bean(name = "SALVAR_LIVRO")
 	public Navigation<Livro> salvarLivro() {
@@ -27,7 +27,7 @@ public class LivroNavigation {
 	@Bean(name = "INICIO_LIVRO")
 	public Navigation<Livro> inicioLivro() {
 		return new NavigationBuilder<Livro>()
-				.next(geraCodigoLivro)
+				.next(inicializaAtributos)
 				.build();
 	}
 	

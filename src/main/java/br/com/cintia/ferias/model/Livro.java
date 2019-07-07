@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Livro extends EntidadeDominio{
 
+	
 	private String codigo;
 	private String titulo;
 	private Integer qtdPaginas;

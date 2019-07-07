@@ -1,13 +1,10 @@
 package br.com.cintia.ferias.service;
 
-import br.com.cintia.ferias.util.EntidadeDominio;
 import br.com.cintia.ferias.util.Resultado;
 
-public interface IService<T extends EntidadeDominio> {
+public interface IService<T> {
 
 	public Resultado salvar(T entidade);
-
-	public Resultado consultar(T entidade);
 
 	public Resultado excluir(T entidade);
 
@@ -20,4 +17,6 @@ public interface IService<T extends EntidadeDominio> {
 	public Resultado findByFilter(T entidade);
 	
 	public Resultado excluirById(T entidade);
+	
+	public Resultado findAll(T entidade);
 }

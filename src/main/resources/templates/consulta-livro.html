@@ -50,7 +50,7 @@
 					<td th:text="${livro.autor.nome}"></td>
 					<td th:text="${livro.editora.nome}"></td>
 					<td th:text="${livro.categoria.descricao}"></td>
-					<td th:text="${livro.ativo}"></td>
+					<td th:text="${livro.ativo} ? 'Sim' : 'Não'"></td>
 					<td><a class="pr-3"
 						th:href="@{/editar/{idlivro}(idlivro = ${livro.id})}">Editar</a> <a
 						th:href="@{/excluir/{idlivro}(idlivro = ${livro.id})}">Excluir</a>

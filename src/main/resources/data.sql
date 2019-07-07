@@ -1281,4 +1281,10 @@
 
  insert into grupo_inativacao values
  (grupo_inativacao_seq.nextval, 'Sem Estoque', 'Livro sem saldo em Estoque');
+ 
+  insert into grupo_precificacao values
+ (grupo_precificacao_seq.nextval, 'Margem 5%'),
+ (grupo_precificacao_seq.nextval, 'Margem 10%'),
+  (grupo_precificacao_seq.nextval, 'Margem 15%'),
+   (grupo_precificacao_seq.nextval, 'Margem 20%');
 

@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 public class Cidade extends EntidadeDominio{
 	
 	private String nome;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Estado estado;
 	

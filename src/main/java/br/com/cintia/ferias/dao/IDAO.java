@@ -5,8 +5,6 @@ import br.com.cintia.ferias.util.Resultado;
 
 public interface IDAO<T extends EntidadeDominio> {
 	
-	public Resultado consultar (T entidade);
-	
 	public Resultado excluir (T entidade);
 	
 	public Resultado alterar (T entidade);
@@ -17,5 +15,7 @@ public interface IDAO<T extends EntidadeDominio> {
 
 	public Resultado findByFilter(T entidade);
 
-	Resultado excluirById(T entidade);
+	public Resultado excluirById(T entidade);
+	
+	public Resultado findAll(T entidade);
 }

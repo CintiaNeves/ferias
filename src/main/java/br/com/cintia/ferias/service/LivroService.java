@@ -17,13 +17,13 @@ public class LivroService implements IService<Livro>{
 	public Resultado salvar(Livro entidade) {
 		
 		dao.salvar(entidade);
-		return dao.consultar(entidade);
+		return dao.findAll(entidade);
 	}
 
 	@Override
-	public Resultado consultar(Livro entidade) {
+	public Resultado findAll(Livro entidade) {
 		
-		return dao.consultar(entidade);
+		return dao.findAll(entidade);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class LivroService implements IService<Livro>{
 	@Override
 	public Resultado alterar(Livro entidade) {
 		
-		return dao.salvar(entidade);
+		return dao.alterar(entidade);
 	}
 
 	@Override
@@ -46,8 +46,7 @@ public class LivroService implements IService<Livro>{
 
 	@Override
 	public Resultado inicio(Livro entidade) {
-			
-		dao.excluir(entidade);
+		
 		return dao.salvar(entidade);
 	}
 
@@ -60,7 +59,7 @@ public class LivroService implements IService<Livro>{
 	public Resultado excluirById(Livro entidade) {
 		
 		dao.excluirById(entidade);
-		return dao.consultar(entidade);
+		return dao.findAll(entidade);
 	}
 
 	

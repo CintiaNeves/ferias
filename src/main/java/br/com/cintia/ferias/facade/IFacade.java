@@ -7,7 +7,7 @@ public interface IFacade<T extends EntidadeDominio> {
 	
 	public void salvar(NavigationCase<T> navigationCase);
 
-	public void consultar(NavigationCase<T> navigationCase);
+	public void findAll(NavigationCase<T> navigationCase);
 
 	public void excluir(NavigationCase<T> navigationCase);
 
